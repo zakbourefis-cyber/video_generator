@@ -1,0 +1,51 @@
+﻿ID,Sujet,Catégorie,Époque,Pays/Région,Hook,Potentiel Viral (/10),Statut,Duree_Cible,Id_Video
+1,La folie dansante de Strasbourg,Événement étrange,1518,France,Une ville entière s'est mise à danser jusqu'à mourir.,10,En attente,35,1_la_folie_dansante_de_strasbourg
+2,L'armée de terre cuite,Archéologie,Antiquité,Chine,Des milliers de soldats attendaient sous terre depuis 2200 ans.,10,En attente,35,2_larmée_de_terre_cuite
+3,Le béton romain,Technologie,Antiquité,Empire romain,Pourquoi les ports romains survivent-ils encore aujourd'hui ?,9,En attente,35,3_le_béton_romain
+4,Le navire de Sutton Hoo,Archéologie,VIIe siècle,Angleterre,Un bateau funéraire géant caché sous une colline.,9,En attente,35,4_le_navire_de_sutton_hoo
+5,L'expédition Franklin,Exploration,XIXe siècle,Arctique,Deux navires ont disparu sans laisser de trace.,10,En attente,35,5_lexpédition_franklin
+6,Le trésor de Staffordshire,Trésor,VIIe siècle,Angleterre,Un promeneur découvre une fortune enterrée.,8,En attente,35,6_le_trésor_de_staffordshire
+7,Les corps de Pompéi,Catastrophe,79 ap. J.-C.,Italie,Des victimes figées dans leurs derniers instants.,10,En attente,45,7_les_corps_de_pompéi
+8,La tombe de Toutânkhamon,Archéologie,Égypte antique,Égypte,La découverte qui lança une malédiction légendaire.,10,En attente,35,8_la_tombe_de_toutânkhamon
+9,Les lignes de Nazca,Mystère archéologique,Antiquité,Pérou,Des dessins géants visibles depuis le ciel.,9,En attente,60,9_les_lignes_de_nazca
+10,Le manuscrit de Voynich,Mystère,Moyen Âge,Europe,Le livre que personne ne sait lire.,10,En attente,60,10_le_manuscrit_de_voynich
+11,Le mécanisme d'Anticythère,Technologie,Antiquité,Grèce,Un ordinateur vieux de 2000 ans.,10,En attente,35,11_le_mécanisme_danticythère
+12,La bibliothèque d'Alexandrie,Savoir,Antiquité,Égypte,Le plus grand centre de connaissance perdu.,9,En attente,35,12_la_bibliothèque_dalexandrie
+13,Pompéi sous les cendres,Archéologie,79 ap. J.-C.,Italie,Une ville entière figée dans le temps.,9,En attente,35,13_pompéi_sous_les_cendres
+14,Le colosse de Rhodes,Merveille,Antiquité,Grèce,Une statue gigantesque disparue.,8,En attente,35,14_le_colosse_de_rhodes
+15,Les momies des marais,Archéologie,Antiquité,Danemark,Des corps conservés pendant des millénaires.,9,En attente,35,15_les_momies_des_marais
+16,Le trésor de Priam,Archéologie,Âge du bronze,Turquie,La découverte qui bouleversa l'archéologie.,8,En attente,35,16_le_trésor_de_priam
+17,Göbekli Tepe,Archéologie,Préhistoire,Turquie,Un temple plus ancien que les pyramides.,10,En attente,35,17_göbekli_tepe
+18,Les Vikings au Canada,Exploration,XIe siècle,Canada,Les Vikings ont atteint l'Amérique avant Colomb.,9,En attente,35,18_les_vikings_au_canada
+19,La colonie de Roanoke,Disparition,XVIe siècle,États-Unis,Un village entier s'est volatilisé.,10,En attente,60,19_la_colonie_de_roanoke
+20,Le Krakatoa,Catastrophe,1883,Indonésie,L'explosion entendue à des milliers de kilomètres.,9,En attente,45,20_le_krakatoa
+21,Les gardiens de Xian,Archéologie,Antiquité,Chine,Les soldats enterrés pour protéger un empereur.,8,En attente,35,21_les_gardiens_de_xian
+22,Le siège de Malte,Bataille,1565,Malte,Une poignée d'hommes contre un empire.,8,En attente,45,22_le_siège_de_malte
+23,Le Mary Celeste,Mystère maritime,1872,Atlantique,Un navire retrouvé vide.,10,En attente,60,23_le_mary_celeste
+24,Le Grand Incendie de Londres,Catastrophe,1666,Angleterre,Une capitale détruite en quelques jours.,8,En attente,45,24_le_grand_incendie_de_londres
+25,La peste noire,Pandémie,XIVe siècle,Europe,La maladie qui changea le continent.,9,En attente,35,25_la_peste_noire
+26,Le mythe des tunnels templiers,Mystère,Moyen Âge,Europe,Des passages secrets existent-ils vraiment ?,7,En attente,60,26_le_mythe_des_tunnels_templiers
+27,Les statues de l'île de Pâques,Civilisation,Antiquité,Rapa Nui,Comment ont-ils déplacé ces géants ?,10,En attente,35,27_les_statues_de_lîle_de_pâques
+28,La bataille de Cannes,Bataille,216 av. J.-C.,Italie,Le plus grand piège militaire de l'histoire.,8,En attente,45,28_la_bataille_de_cannes
+29,Le roi Crésus,Personnage,Antiquité,Lydie,L'homme le plus riche du monde antique.,8,En attente,35,29_le_roi_crésus
+30,Les jardins suspendus,Merveille,Antiquité,Babylone,Ont-ils vraiment existé ?,9,En attente,35,30_les_jardins_suspendus
+31,Les navires fantômes japonais,Mystère maritime,Divers,Japon,Des bateaux reviennent sans équipage.,8,En attente,60,31_les_navires_fantômes_japonais
+32,La chute de Constantinople,Empire,1453,Turquie,La fin d'un empire millénaire.,9,En attente,45,32_la_chute_de_constantinople
+33,Petra,Cité perdue,Antiquité,Jordanie,Une ville sculptée dans la roche.,9,En attente,35,33_petra
+34,La Nef d'Or,Trésor,Époque moderne,Europe,Une fortune engloutie.,7,En attente,35,34_la_nef_dor
+35,Teutobourg,Bataille,9 ap. J.-C.,Allemagne,Trois légions romaines anéanties.,9,En attente,45,35_teutobourg
+36,Le tombeau du premier empereur,Archéologie,Antiquité,Chine,Pourquoi ce tombeau reste-t-il fermé ?,10,En attente,35,36_le_tombeau_du_premier_empereur
+37,Les catacombes de Paris,Lieu insolite,XVIIIe siècle,France,Des millions d'ossements sous la ville.,9,En attente,35,37_les_catacombes_de_paris
+38,Le Vasa,Naufrage,XVIIe siècle,Suède,Le navire qui coula dès son lancement.,8,En attente,35,38_le_vasa
+39,Le code d'Hammourabi,Lois,Antiquité,Mésopotamie,L'un des premiers codes juridiques.,7,En attente,35,39_le_code_dhammourabi
+40,Les guerriers celtes,Civilisation,Antiquité,Europe,Les pratiques qui choquaient Rome.,8,En attente,35,40_les_guerriers_celtes
+41,Le San José,Trésor,XVIIIe siècle,Colombie,L'épave la plus riche du monde.,10,En attente,35,41_le_san_josé
+42,Les mines du roi Salomon,Légende,Antiquité,Afrique,Un trésor réel ou imaginaire ?,8,En attente,60,42_les_mines_du_roi_salomon
+43,George Mallory,Exploration,XXe siècle,Everest,A-t-il atteint le sommet avant tout le monde ?,9,En attente,35,43_george_mallory
+44,La route de la soie,Commerce,Antiquité,Eurasie,L'autoroute commerciale du monde antique.,8,En attente,35,44_la_route_de_la_soie
+45,Le phare d'Alexandrie,Merveille,Antiquité,Égypte,La tour qui guidait les marins.,8,En attente,35,45_le_phare_dalexandrie
+46,Les samouraïs chrétiens,Personnages,XVIe siècle,Japon,Une histoire méconnue du Japon.,9,En attente,35,46_les_samouraïs_chrétiens
+47,Le siège de Masada,Bataille,Ier siècle,Israël,Le dernier refuge des rebelles.,8,En attente,45,47_le_siège_de_masada
+48,Port Royal,Catastrophe,1692,Jamaïque,La ville pirate engloutie.,9,En attente,45,48_port_royal
+49,Les momies des Andes,Archéologie,Précolombien,Andes,Le froid les a conservées pendant des siècles.,9,En attente,35,49_les_momies_des_andes
+50,Le royaume d'Aksoum,Civilisation,Antiquité,Éthiopie,Une superpuissance oubliée d'Afrique.,9,En attente,35,50_le_royaume_daksoum
