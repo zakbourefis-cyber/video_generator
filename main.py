@@ -5,11 +5,11 @@ import time
 
 # Liste de tes scripts dans l'ordre chronologique exact
 PIPELINE = [
-    "1_script_gen_auto.py",
-    "2_audio_multi.py",
-    "3_video_multi.py",
-    "4_subtitles_multi.py",
-    "5_montage_multi.py"
+    "1_script_gen.py",
+    "2_audio.py",
+    "3_video.py",
+    "4_subtitles.py",
+    "5_montage.py"
 ]
 
 def executer_script(nom_script):

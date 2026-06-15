@@ -36,7 +36,7 @@ def nettoyer_fichiers_temporaires(nombre_scenes):
     print("🧹 Nettoyage de l'espace de travail...")
     fichiers_a_supprimer = [AUDIO_VOIX, SOUS_TITRES_JSON, FICHIER_SCRIPT]
     for i in range(1, nombre_scenes + 1):
-        fichiers_a_supprimer.append(f"scene_{i}.mp4")
+        fichiers_a_supprimer.append(f"scene_{i}.jpg")
         
     for fichier in fichiers_a_supprimer:
         if os.path.exists(fichier):
@@ -70,24 +70,38 @@ def assembler_video_professionnelle():
 
     clips_fond_ordonnes = []
 
+    # ... (Le début du fichier avec la détection ImageMagick reste pareil) ...
+
+    audio_clip = AudioFileClip(AUDIO_VOIX)
+    duree_totale = audio_clip.duration
+    duree_par_scene = duree_totale / nombre_scenes
+    print(f"⏱️ L'audio fait {duree_totale:.2f}s. Chaque image restera à l'écran {duree_par_scene:.2f}s.")
+
+    clips_fond_ordonnes = []
+
     for i in range(1, nombre_scenes + 1):
-        nom_video = f"scene_{i}.mp4"
-        if not os.path.exists(nom_video):
-            print(f"❌ Erreur : {nom_video} introuvable.")
+        nom_image = f"scene_{i}.jpg"
+        if not os.path.exists(nom_image):
+            print(f"❌ Erreur : {nom_image} introuvable.")
             return
             
-        clip_scene = VideoFileClip(nom_video).resize(newsize=(1080, 1920))
+        # On charge l'image générée par l'IA
+        clip_scene = ImageClip(nom_image).set_duration(duree_par_scene)
         
-        if clip_scene.duration > duree_par_scene:
-            clip_scene = clip_scene.subclip(0, duree_par_scene)
-        else:
-            clip_scene = clip_scene.loop(duration=duree_par_scene)
-            
+        # On définit son moment d'apparition
         temps_depart = (i - 1) * duree_par_scene
         clip_scene = clip_scene.set_start(temps_depart)
+        
+        # On ajoute un fondu enchaîné d'une demi-seconde pour une transition douce
+        if i > 1:
+            clip_scene = clip_scene.crossfadein(0.5)
+            
         clips_fond_ordonnes.append(clip_scene)
 
+    # Fusion des images avec le fond
     fond_complet = CompositeVideoClip(clips_fond_ordonnes, size=(1080, 1920))
+
+    # ... (La suite avec les sous-titres reste exactement la même !) ...
 
     with open(SOUS_TITRES_JSON, "r", encoding="utf-8") as f:
         mots_chronometres = json.load(f)

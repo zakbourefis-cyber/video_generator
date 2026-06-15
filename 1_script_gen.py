@@ -9,6 +9,7 @@ client = OpenAI(
     api_key="local-machine"
 )
 
+# On pointe bien vers le fichier préparé
 FICHIER_SUJETS = "50_Sujets_Viraux.csv"
 
 def charger_prochain_sujet():
@@ -21,13 +22,13 @@ def charger_prochain_sujet():
     sujet_selectionne = None
     index_selectionne = -1
 
-    with open(FICHIER_SUJETS, mode='r', encoding='utf-8') as f:
+    # 🔥 FIX DU BOM (Caractère invisible d'Excel) avec utf-8-sig
+    with open(FICHIER_SUJETS, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         lignes = list(reader)
 
     # Recherche du premier sujet en attente
     for idx, ligne in enumerate(lignes):
-        # Sécurité au cas où la colonne Statut n'existe pas encore
         statut = ligne.get("Statut", "En attente").strip()
         if statut == "En attente" or statut == "":
             sujet_selectionne = ligne
@@ -39,19 +40,18 @@ def charger_prochain_sujet():
 def mettre_a_jour_statut(index_ligne, nouveau_statut):
     """Met à jour le statut de la ligne traitée dans le CSV"""
     lignes = []
-    with open(FICHIER_SUJETS, mode='r', encoding='utf-8') as f:
+    with open(FICHIER_SUJETS, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         champs = reader.fieldnames
         lignes = list(reader)
 
-    # Si les colonnes de contrôle n'existent pas, on s'assure qu'elles sont là
     if "Statut" not in champs: champs.append("Statut")
     if "Duree_Cible" not in champs: champs.append("Duree_Cible")
     if "Id_Video" not in champs: champs.append("Id_Video")
 
     lignes[index_ligne]["Statut"] = nouveau_statut
 
-    with open(FICHIER_SUJETS, mode='w', encoding='utf-8', newline='') as f:
+    with open(FICHIER_SUJETS, mode='w', encoding='utf-8-sig', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=champs)
         writer.writeheader()
         writer.writerows(lignes)
@@ -61,9 +61,9 @@ def calculer_contraintes_video(duree_cible):
     try:
         duree = int(duree_cible)
     except (ValueError, TypeError):
-        duree = 45 # Durée par défaut si non renseignée
+        duree = 45 
 
-    total_mots = int(duree * 2.5) # 2.5 mots par seconde
+    total_mots = int(duree * 2.5)
     
     if duree <= 35:
         nb_scenes = 3
@@ -76,14 +76,13 @@ def calculer_contraintes_video(duree_cible):
     return duree, total_mots, nb_scenes, mots_par_scene
 
 def generer_prompt_systeme(nb_scenes, mots_par_scene, total_mots):
-    """Génère un prompt système dynamique adapté aux contraintes de temps"""
-    return f"""Tu es un réalisateur de documentaires captivants au format Short/TikTok.
-Tu dois obligatoirement répondre au format JSON strict, sans aucune phrase autour, sans balises ```json.
+    return f"""Tu es un réalisateur de documentaires historiques mystérieux au format TikTok.
+Tu dois obligatoirement répondre au format JSON strict.
 
 Contraintes strictes d'écriture :
-- Rédige un script complet contenant un total global d'environ {total_mots} mots.
-- Le ton doit être mystérieux, dramatique et rythmé.
-- Découpe l'histoire en exactement {nb_scenes} scènes logiques.
+- Rédige un script complet et TRÈS DÉTAILLÉ.
+- Le ton doit être dramatique, immersif et rythmé.
+- Découpe l'histoire en exactement {nb_scenes} scènes.
 
 L'objet JSON doit suivre exactement cette structure :
 {{
@@ -91,39 +90,36 @@ L'objet JSON doit suivre exactement cette structure :
     "scenes": [
         {{
             "num_scene": 1,
-            "texte_voix_off": "Texte de la scène (environ {mots_par_scene} mots). La scène 1 DOIT impérativement intégrer le Hook imposé.",
-            "mot_cle_visuel": "Un SEUL mot-clé précis en ANGLAIS décrivant l'action (ex: 'ancient coins close up')"
+            "texte_voix_off": "La scène 1 DOIT impérativement commencer par le Hook imposé, puis être suivie de 3 phrases longues pour bien installer le contexte.",
+            "mot_cle_visuel": "Un prompt en ANGLAIS pour générer une image IA hyper-réaliste (ex: 'ancient roman soldiers in dark cave cinematic lighting 4k')"
         }}
     ]
 }}
-Génère ainsi les {nb_scenes} scènes dans le tableau 'scenes'."""
+Génère ainsi les {nb_scenes} scènes. CHAQUE scène doit contenir au moins 3 à 4 phrases complètes."""
 
 def executer_pipeline_generation():
-    # 1. Sélection du sujet
     sujet, idx = charger_prochain_sujet()
     if not sujet:
         print("🎉 Tous les sujets du fichier Excel ont été traités !")
         return
 
-    # Injection de valeurs par défaut si ton CSV initial ne les a pas encore
+    # 🔥 FIX KEYERROR : Utilisation sécurisée avec .get()
+    sujet_id = sujet.get("ID", str(idx))
     duree_csv = sujet.get("Duree_Cible", "45") or "45"
-    id_video = sujet.get("Id_Video", f"video_{sujet['ID']}") or f"video_{sujet['ID']}"
+    id_video = sujet.get("Id_Video", f"video_{sujet_id}") or f"video_{sujet_id}"
     
-    # 2. Calcul des contraintes dynamiques
     duree, total_mots, nb_scenes, mots_par_scene = calculer_contraintes_video(duree_csv)
     
-    print(f"🎬 Sujet trouvé : '{sujet['Sujet']}' (ID: {sujet['ID']})")
+    print(f"🎬 Sujet trouvé : '{sujet.get('Sujet', 'Sujet inconnu')}' (ID: {sujet_id})")
     print(f"⏱️ Configuration dynamique : {duree}s ciblées -> {nb_scenes} scènes, ~{total_mots} mots au total.")
 
-    # 3. Préparation des messages pour Llama 3.2
     sys_prompt = generer_prompt_systeme(nb_scenes, mots_par_scene, total_mots)
     user_prompt = f"""Crée le script pour le sujet suivant :
-- Thème : {sujet['Sujet']}
-- Époque : {sujet['Époque']}
-- Région : {sujet['Pays/Région']}
-- Hook de départ obligatoire (à placer en scène 1) : {sujet['Hook']}"""
+- Thème : {sujet.get('Sujet', '')}
+- Époque : {sujet.get('Époque', '')}
+- Région : {sujet.get('Pays/Région', '')}
+- Hook de départ obligatoire (à placer en scène 1) : {sujet.get('Hook', '')}"""
 
-    # 4. Appel de l'IA locale via Odysseus
     print("🤖 Odysseus écrit le script sur mesure...")
     response = client.chat.completions.create(
         model="llama3.2",
@@ -136,22 +132,32 @@ def executer_pipeline_generation():
     
     contenu_brut = response.choices[0].message.content.strip()
     
+    # 🔥 LE FIX : Nettoyage radical du contenu de l'IA
+    # On cherche la première { et la dernière } pour ignorer le blabla autourgenerer_prompt_system
+    debut_json = contenu_brut.find('{')
+    fin_json = contenu_brut.rfind('}')
+    
+    if debut_json != -1 and fin_json != -1:
+        contenu_propre = contenu_brut[debut_json:fin_json + 1]
+    else:
+        contenu_propre = contenu_brut # Au cas où il n'y a pas d'accolades du tout
+
     try:
-        donnees_video = json.loads(contenu_brut)
+        donnees_video = json.loads(contenu_propre)
         
-        # On sauvegarde le script sous le nom unique de la vidéo
-        nom_fichier_sortie = "script_output.json"
-        with open(nom_fichier_sortie, "w", encoding="utf-8") as f:
+        with open("script_output.json", "w", encoding="utf-8") as f:
             json.dump(donnees_video, f, indent=4, ensure_ascii=False)
             
-        print(f"✅ Script généré avec succès et enregistré dans '{nom_fichier_sortie}'.")
+        print("✅ Script généré avec succès et enregistré.")
         
-        # 5. On valide la ligne dans le CSV
         mettre_a_jour_statut(idx, "Publie")
-        print(f"💾 Fichier CSV mis à jour (Ligne {sujet['ID']} passée à 'Publie').")
+        print(f"💾 Fichier CSV mis à jour (Ligne {sujet_id} passée à 'Publie').")
         
-    except json.JSONDecodeError:
-        print("❌ L'IA a échoué à produire un JSON propre. Passage en statut Erreur.")
+    except json.JSONDecodeError as e:
+        print(f"❌ Erreur critique de lecture JSON : {e}")
+        print("--- Contenu brut renvoyé par l'IA ---")
+        print(contenu_brut)
+        print("-------------------------------------")
         mettre_a_jour_statut(idx, "Erreur")
 
 if __name__ == "__main__":
