@@ -7,7 +7,7 @@ import time
 PIPELINE = [
     "1_script_gen.py",
     "2_audio.py",
-    "3_video.py",
+    "3_images_multi.py",  # 🔥 LE CHANGEMENT EST ICI : On appelle le script d'images IA
     "4_subtitles.py",
     "5_montage.py"
 ]

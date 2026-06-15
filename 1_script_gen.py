@@ -76,26 +76,30 @@ def calculer_contraintes_video(duree_cible):
     return duree, total_mots, nb_scenes, mots_par_scene
 
 def generer_prompt_systeme(nb_scenes, mots_par_scene, total_mots):
-    return f"""Tu es un réalisateur de documentaires historiques mystérieux au format TikTok.
-Tu dois obligatoirement répondre au format JSON strict.
+    return f"""Tu es une IA spécialisée dans la génération de JSON strict.
+Tu es un réalisateur de documentaires historiques mystérieux au format TikTok.
 
-Contraintes strictes d'écriture :
-- Rédige un script complet et TRÈS DÉTAILLÉ.
-- Le ton doit être dramatique, immersif et rythmé.
-- Découpe l'histoire en exactement {nb_scenes} scènes.
+RÈGLES ABSOLUES :
+1. Génère UN SEUL objet JSON global et valide. Pas de blocs séparés, pas de notes à la fin, pas de tirets.
+2. NE CRÉE JAMAIS de clés en double. Tout le texte de la scène doit être dans une seule et unique chaîne "texte_voix_off" (fais 3 ou 4 phrases, mais garde-les dans la même variable).
+3. Le champ "mot_cle_visuel" DOIT ÊTRE RÉDIGÉ EN ANGLAIS EXCLUSIVEMENT.
 
-L'objet JSON doit suivre exactement cette structure :
+Voici la SEULE structure autorisée (tu dois générer exactement {nb_scenes} scènes dans le tableau "scenes") :
 {{
-    "titre": "Le titre global du short",
+    "titre": "Titre accrocheur du short",
     "scenes": [
         {{
             "num_scene": 1,
-            "texte_voix_off": "La scène 1 DOIT impérativement commencer par le Hook imposé, puis être suivie de 3 phrases longues pour bien installer le contexte.",
-            "mot_cle_visuel": "Un prompt en ANGLAIS pour générer une image IA hyper-réaliste (ex: 'ancient roman soldiers in dark cave cinematic lighting 4k')"
+            "texte_voix_off": "Tout le texte de la scène 1 se trouve ici, d'un seul bloc, sans retours à la ligne compliqués (environ {mots_par_scene} mots).",
+            "mot_cle_visuel": "ENGLISH PROMPT ONLY (ex: 'ancient wooden ship buried under dark dirt, cinematic lighting, 8k')"
+        }},
+        {{
+            "num_scene": 2,
+            "texte_voix_off": "Tout le texte de la scène 2 se trouve ici...",
+            "mot_cle_visuel": "ENGLISH PROMPT ONLY (ex: 'anglo saxon gold helmet artifacts close up, 8k resolution')"
         }}
     ]
-}}
-Génère ainsi les {nb_scenes} scènes. CHAQUE scène doit contenir au moins 3 à 4 phrases complètes."""
+}}"""
 
 def executer_pipeline_generation():
     sujet, idx = charger_prochain_sujet()
