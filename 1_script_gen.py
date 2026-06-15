@@ -76,27 +76,28 @@ def calculer_contraintes_video(duree_cible):
     return duree, total_mots, nb_scenes, mots_par_scene
 
 def generer_prompt_systeme(nb_scenes, mots_par_scene, total_mots):
-    return f"""Tu es une IA spécialisée dans la génération de JSON strict.
-Tu es un réalisateur de documentaires historiques mystérieux au format TikTok.
+    return f"""Tu es une IA spécialisée dans la création de scripts JSON.
+Tu ne dois RIEN écrire d'autre que du JSON pur. Pas de markdown, pas de phrases d'introduction.
 
 RÈGLES ABSOLUES :
-1. Génère UN SEUL objet JSON global et valide. Pas de blocs séparés, pas de notes à la fin, pas de tirets.
-2. NE CRÉE JAMAIS de clés en double. Tout le texte de la scène doit être dans une seule et unique chaîne "texte_voix_off" (fais 3 ou 4 phrases, mais garde-les dans la même variable).
-3. Le champ "mot_cle_visuel" DOIT ÊTRE RÉDIGÉ EN ANGLAIS EXCLUSIVEMENT.
+- L'histoire est un documentaire mystérieux et captivant.
+- Le JSON doit contenir exactement {nb_scenes} scènes.
+- Le champ "texte_voix_off" de chaque scène doit faire environ {mots_par_scene} mots.
+- Le champ "mot_cle_visuel" doit OBLIGATOIREMENT être écrit en ANGLAIS. C'est une courte description pour un générateur d'images.
 
-Voici la SEULE structure autorisée (tu dois générer exactement {nb_scenes} scènes dans le tableau "scenes") :
+EXEMPLE DE STRUCTURE À SUIVRE STRICTEMENT :
 {{
-    "titre": "Titre accrocheur du short",
+    "titre": "Le mystère du temps",
     "scenes": [
         {{
             "num_scene": 1,
-            "texte_voix_off": "Tout le texte de la scène 1 se trouve ici, d'un seul bloc, sans retours à la ligne compliqués (environ {mots_par_scene} mots).",
-            "mot_cle_visuel": "ENGLISH PROMPT ONLY (ex: 'ancient wooden ship buried under dark dirt, cinematic lighting, 8k')"
+            "texte_voix_off": "Voici une histoire fascinante qui commence maintenant...",
+            "mot_cle_visuel": "medieval village people dancing crazy dark cinematic"
         }},
         {{
             "num_scene": 2,
-            "texte_voix_off": "Tout le texte de la scène 2 se trouve ici...",
-            "mot_cle_visuel": "ENGLISH PROMPT ONLY (ex: 'anglo saxon gold helmet artifacts close up, 8k resolution')"
+            "texte_voix_off": "La suite de l'histoire se déroule ici...",
+            "mot_cle_visuel": "old broken clock in a dark room dust"
         }}
     ]
 }}"""
